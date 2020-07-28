@@ -31,6 +31,15 @@ public class CommandeTest {
 		BigDecimal total = commande.total(panier);
 		org.junit.Assert.assertEquals(new BigDecimal("1.50"), total.setScale(2));
 	}
+	
+	@Test
+	public void testCommandeAvecUnSeulProduitAchter2FoisAuPanier() {
+		Commande commande = new Commande();
+		Panier panier = new Panier();
+		panier.ajouterProduit(p1,2);
+		BigDecimal total = commande.total(panier);
+		org.junit.Assert.assertEquals(new BigDecimal("3.00"), total.setScale(2));
+	}
 
 	
 }
