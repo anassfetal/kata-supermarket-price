@@ -32,7 +32,6 @@ public class Commande {
 							if(regleAjouterProduitGratuit.getProduit().getIdProduit()==gProduit.getProduit().getIdProduit()) {
 								Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(nombre));
 								int rapport =gProduit.getNombre()/regleAjouterProduitGratuit.getNombre();
-								//total=total.subtract(Utils.multiDeuxBigDecimal(Utils.intToBigDecimal(rapport),gProduit.getProduit().prix.getPrix()));
 								total=Utils.substractionBigDecimal(total, Utils.multiDeuxBigDecimal(Utils.intToBigDecimal(rapport),gProduit.getProduit().prix.getPrix()));
 							}
 							
