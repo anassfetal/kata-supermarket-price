@@ -8,7 +8,12 @@ public class Commande {
 
 	public BigDecimal total(Panier panier) {
 
-		return new BigDecimal("0");
+		return intToBigDecimal(0);
+	}
+	
+	
+	public BigDecimal intToBigDecimal(int nombre) {
+		return new BigDecimal(nombre);
 	}
 
 }
