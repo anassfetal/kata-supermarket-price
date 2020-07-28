@@ -17,7 +17,7 @@ public class Commande {
 				gProduit = panier.getListGroupProduit().get(i);
 				BigDecimal prixGProduit=Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(gProduit.getNombre()));
 				
-				total= total.add(prixGProduit);
+				total=Utils.ajoutDeuxBigDecimal(total,prixGProduit);
 				
 			}
 			return total;
