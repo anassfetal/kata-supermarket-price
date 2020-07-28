@@ -11,14 +11,9 @@ import com.fanass.kata.supermarche.model.ReglePrix;
 import com.fanass.kata.supermarche.utils.Utils;
 
 public class Commande {
-
-
+	
 	private List<ReglePrix> listReglesPrix = new ArrayList<ReglePrix>();
 
-	public void ajouterRegle(ReglePrix reglePrix) {
-		listReglesPrix.add(reglePrix);
-		
-	}
 	public BigDecimal total(Panier panier, List<ReglePrix> listReglesPrix) {
 		GroupProduit gProduit;
 		BigDecimal total=Utils.intToBigDecimal(0);
@@ -41,13 +36,16 @@ public class Commande {
 						}
 					}
 				}	
-					
-				
 				
 			}
 			
 		}
 		return total;
+	}
+	
+	public void ajouterRegle(ReglePrix reglePrix) {
+		listReglesPrix.add(reglePrix);
+		
 	}
 	public List<ReglePrix> getListReglesPrix() {
 		return listReglesPrix;
