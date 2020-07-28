@@ -25,5 +25,11 @@ public class Utils {
 	
 	}
 
+	
+	public static BigDecimal substractionBigDecimal(BigDecimal a1,BigDecimal a2) {
+		
+		return a1.subtract(a2);
+		
+	}
 
 }

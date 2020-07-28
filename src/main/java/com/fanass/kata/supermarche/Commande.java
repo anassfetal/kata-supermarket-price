@@ -32,7 +32,8 @@ public class Commande {
 							if(regleAjouterProduitGratuit.getProduit().getIdProduit()==gProduit.getProduit().getIdProduit()) {
 								Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(nombre));
 								int rapport =gProduit.getNombre()/regleAjouterProduitGratuit.getNombre();
-								total=total.subtract(Utils.multiDeuxBigDecimal(Utils.intToBigDecimal(rapport),gProduit.getProduit().prix.getPrix()));
+								//total=total.subtract(Utils.multiDeuxBigDecimal(Utils.intToBigDecimal(rapport),gProduit.getProduit().prix.getPrix()));
+								total=Utils.substractionBigDecimal(total, Utils.multiDeuxBigDecimal(Utils.intToBigDecimal(rapport),gProduit.getProduit().prix.getPrix()));
 							}
 							
 						}
@@ -40,14 +41,14 @@ public class Commande {
 							ReductionTotalNProduit reductionTotalNProduit =(ReductionTotalNProduit) listReglesPrix.get(h);
 							if(reductionTotalNProduit.getProduit().getIdProduit()==gProduit.getProduit().getIdProduit()) {
 								int N=gProduit.getNombre()/reductionTotalNProduit.getNombreProduit();
-								total=total.subtract(Utils.multiDeuxBigDecimal(
+								total=Utils.substractionBigDecimal(total,Utils.multiDeuxBigDecimal(
 														Utils.intToBigDecimal(N),
-														(
+														(Utils.substractionBigDecimal(
 																Utils.multiDeuxBigDecimal(
-																gProduit.getProduit().prix.getPrix(),
-																Utils.intToBigDecimal(reductionTotalNProduit.getNombreProduit()).subtract(reductionTotalNProduit.getPrix().getPrix())
-																)
-															
+																	gProduit.getProduit().prix.getPrix(),
+																	Utils.intToBigDecimal(reductionTotalNProduit.getNombreProduit())
+																				),
+															reductionTotalNProduit.getPrix().getPrix())
 													    )
 													)
 								);
