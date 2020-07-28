@@ -16,6 +16,14 @@ public class Panier {
 		this.listGroupProduit = listGroupProduit;
 	}
 
+	public void ajouterProduit(Produit p1, int i) {
+		GroupProduit gProduit = new GroupProduit();
+		gProduit.nombre=i;
+		gProduit.produit=p1;
+		listGroupProduit.add(gProduit);
+		
+	}
+
 	
 	
 
