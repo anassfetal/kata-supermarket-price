@@ -90,6 +90,21 @@ public class CommandeTest {
 
 	}
 
+	
+	@Test
+	public void testCommandeAvecTroisRegleAjouterProduitGratuit() {
+		Commande commande = new Commande();
+		commande.ajouterRegle(new RegleAjouterProduitGratuit(p1,3));
+		commande.ajouterRegle(new RegleAjouterProduitGratuit(p2,3));
+		commande.ajouterRegle(new RegleAjouterProduitGratuit(p3,3));	
+		Panier panier = new Panier();
+		panier.ajouterProduit(p1,10);
+		panier.ajouterProduit(p2,10);
+		panier.ajouterProduit(p3,10);
+		BigDecimal total = commande.total(panier,commande.getListReglesPrix());
+		org.junit.Assert.assertEquals(new BigDecimal("35.00"), total.setScale(2));
+
+	}
 
 	
 }
