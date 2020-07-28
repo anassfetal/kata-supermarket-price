@@ -172,4 +172,18 @@ public class CommandeTest {
 		org.junit.Assert.assertEquals(new BigDecimal("4.50"), total.setScale(2));
 	}
 	
+	
+	
+	@Test
+	public void testCommandeAvecUnProduitKiloPlusProduitSimpleAuPanier() {
+		Commande commande = new Commande();
+		Panier panier = new Panier();
+		panier.ajouterProduit(p1,10);
+		panier.ajouterProduit(p2,10);
+		panier.ajouterProduit(p3,1);
+		panier.ajouterProduitAvecPoids(p4,new BigDecimal("1.50"),"KG");
+		BigDecimal total = commande.total(panier,null);
+		org.junit.Assert.assertEquals(new BigDecimal("32.00"), total.setScale(2));
+	}
+	
 }
