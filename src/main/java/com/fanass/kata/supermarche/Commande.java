@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.fanass.kata.supermarche.model.GroupProduit;
 import com.fanass.kata.supermarche.model.Panier;
+import com.fanass.kata.supermarche.utils.Utils;
 
 public class Commande {
 
@@ -15,12 +16,10 @@ public class Commande {
 			
 			return gProduit.getProduit().getPrix().getPrix(); 
 		}
-		return intToBigDecimal(0);
+		return Utils.intToBigDecimal(0);
 	}
 	
 	
-	public BigDecimal intToBigDecimal(int nombre) {
-		return new BigDecimal(nombre);
-	}
+
 
 }
