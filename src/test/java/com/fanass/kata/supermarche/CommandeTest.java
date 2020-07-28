@@ -7,6 +7,7 @@ import com.fanass.kata.supermarche.model.Prix;
 import com.fanass.kata.supermarche.model.Produit;
 import com.fanass.kata.supermarche.model.ReductionTotalNProduit;
 import com.fanass.kata.supermarche.model.RegleAjouterProduitGratuit;
+import com.fanass.kata.supermarche.utils.Poids;
 
 
 public class CommandeTest {
@@ -14,7 +15,7 @@ public class CommandeTest {
 	Produit p1 = new Produit(new Prix(new BigDecimal("1.5")),1);
 	Produit p2 = new Produit(new Prix(new BigDecimal("1.0")),2);
 	Produit p3 = new Produit(new Prix(new BigDecimal("2.5")),3);
-	Produit p4 = new Produit(new Prix(new BigDecimal("3.0")),"KG",4);
+	Produit p4 = new Produit(new Prix(new BigDecimal("3.0")),Poids.KILOGRAMME.getValue(),4);
 
 	@Test
 	public void testCommandeSansProduit() {
@@ -181,7 +182,7 @@ public class CommandeTest {
 		panier.ajouterProduit(p1,10);
 		panier.ajouterProduit(p2,10);
 		panier.ajouterProduit(p3,1);
-		panier.ajouterProduitAvecPoids(p4,new BigDecimal("1.50"),"KG");
+		panier.ajouterProduitAvecPoids(p4,new BigDecimal("1.50"),Poids.KILOGRAMME.getValue());
 		BigDecimal total = commande.total(panier,null);
 		org.junit.Assert.assertEquals(new BigDecimal("32.00"), total.setScale(2));
 	}
