@@ -22,8 +22,12 @@ public class Commande {
 			for(int i=0;i<panier.getListGroupProduit().size();i++) {
 				gProduit = new GroupProduit();
 				gProduit = panier.getListGroupProduit().get(i);
-				BigDecimal prixGProduit=Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(gProduit.getNombre()));				
-				total=Utils.ajoutDeuxBigDecimal(total,prixGProduit);
+				if(gProduit.getPoids()==null) {
+					BigDecimal prixGProduit=Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(gProduit.getNombre()));				
+					total=Utils.ajoutDeuxBigDecimal(total,prixGProduit);
+				}else {
+					total=Utils.ajoutDeuxBigDecimal(total,Utils.multiDeuxBigDecimal(gProduit.getPoids(),gProduit.getProduit().getPrix().getPrix()));
+				}
 				int nombre =gProduit.getNombre();
 				if(listReglesPrix!=null) {
 					for(int h=0;h<listReglesPrix.size();h++) {

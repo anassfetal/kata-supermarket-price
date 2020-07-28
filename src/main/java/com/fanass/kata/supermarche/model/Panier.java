@@ -25,8 +25,13 @@ public class Panier {
 		
 	}
 
-	public void ajouterProduitAvecPoids(Produit p4, BigDecimal bigDecimal, String string) {
-		// TODO Auto-generated method stub
+	public void ajouterProduitAvecPoids(Produit produit, BigDecimal poids, String unite) {
+
+		GroupProduit gProduit = new GroupProduit();
+		gProduit.poids=poids;
+		gProduit.unite=unite;
+		gProduit.produit=produit;
+		listGroupProduit.add(gProduit);
 		
 	}
 
