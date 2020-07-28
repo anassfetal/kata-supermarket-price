@@ -7,8 +7,8 @@ import com.fanass.kata.supermarche.model.Panier;
 public class Commande {
 
 	public BigDecimal total(Panier panier) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return new BigDecimal("0");
 	}
 
 }
