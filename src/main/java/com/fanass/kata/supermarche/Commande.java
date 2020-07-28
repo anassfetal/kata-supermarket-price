@@ -1,7 +1,8 @@
 package com.fanass.kata.supermarche;
 
 import java.math.BigDecimal;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fanass.kata.supermarche.model.GroupProduit;
 import com.fanass.kata.supermarche.model.Panier;
@@ -12,13 +13,13 @@ import com.fanass.kata.supermarche.utils.Utils;
 public class Commande {
 
 
-	private ReglePrix reglesPrix ;
+	private List<ReglePrix> listReglesPrix = new ArrayList<ReglePrix>();
 
-	public void ajouterRegle(RegleAjouterProduitGratuit regleAjouterProduitGratuit) {
-		this.setReglesPrix(regleAjouterProduitGratuit);
+	public void ajouterRegle(ReglePrix reglePrix) {
+		listReglesPrix.add(reglePrix);
 		
 	}
-	public BigDecimal total(Panier panier, ReglePrix reglesPrix) {
+	public BigDecimal total(Panier panier, List<ReglePrix> listReglesPrix) {
 		GroupProduit gProduit;
 		BigDecimal total=Utils.intToBigDecimal(0);
 		if(panier.getListGroupProduit().size()!=0) {
@@ -28,13 +29,15 @@ public class Commande {
 				BigDecimal prixGProduit=Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(gProduit.getNombre()));				
 				total=Utils.ajoutDeuxBigDecimal(total,prixGProduit);
 				int nombre =gProduit.getNombre();
-				if(reglesPrix!=null) {
-					if(reglesPrix instanceof RegleAjouterProduitGratuit) {
-						RegleAjouterProduitGratuit regleAjouterProduitGratuit =(RegleAjouterProduitGratuit) reglesPrix;
-						if(regleAjouterProduitGratuit.getProduit().getIdProduit()==gProduit.getProduit().getIdProduit()) {
-							Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(nombre));
-							int rapport =gProduit.getNombre()/regleAjouterProduitGratuit.getNombre();
-							total=total.subtract(Utils.multiDeuxBigDecimal(Utils.intToBigDecimal(rapport),gProduit.getProduit().prix.getPrix()));
+				if(listReglesPrix!=null) {
+					for(int h=0;h<listReglesPrix.size();h++) {
+						if(listReglesPrix.get(h) instanceof RegleAjouterProduitGratuit) {
+							RegleAjouterProduitGratuit regleAjouterProduitGratuit =(RegleAjouterProduitGratuit) listReglesPrix.get(h);
+							if(regleAjouterProduitGratuit.getProduit().getIdProduit()==gProduit.getProduit().getIdProduit()) {
+								Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(nombre));
+								int rapport =gProduit.getNombre()/regleAjouterProduitGratuit.getNombre();
+								total=total.subtract(Utils.multiDeuxBigDecimal(Utils.intToBigDecimal(rapport),gProduit.getProduit().prix.getPrix()));
+							}
 						}
 					}
 				}	
@@ -46,14 +49,14 @@ public class Commande {
 		}
 		return total;
 	}
-
-	public ReglePrix getReglesPrix() {
-		return reglesPrix;
+	public List<ReglePrix> getListReglesPrix() {
+		return listReglesPrix;
+	}
+	public void setListReglesPrix(List<ReglePrix> listReglesPrix) {
+		this.listReglesPrix = listReglesPrix;
 	}
 
-	public void setReglesPrix(ReglePrix reglesPrix) {
-		this.reglesPrix = reglesPrix;
-	}
+	
 
 
 	
