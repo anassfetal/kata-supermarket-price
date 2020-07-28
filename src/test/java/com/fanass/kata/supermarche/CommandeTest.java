@@ -3,10 +3,10 @@ package com.fanass.kata.supermarche;
 import java.math.BigDecimal;
 import org.junit.Test;
 
-
 import com.fanass.kata.supermarche.model.Panier;
 import com.fanass.kata.supermarche.model.Prix;
 import com.fanass.kata.supermarche.model.Produit;
+import com.fanass.kata.supermarche.model.RegleAjouterProduitGratuit;
 
 
 public class CommandeTest {
@@ -62,6 +62,19 @@ public class CommandeTest {
 		org.junit.Assert.assertEquals(new BigDecimal("27.50"), total.setScale(2));	
 	}
 
+	
+	@Test
+	public void testCommandeAvecRegleAjouterProduitGratuit() {
+		Commande commande = new Commande();
+		commande.ajouterRegle(new RegleAjouterProduitGratuit(p1,3));
+		Panier panier = new Panier();
+		panier.ajouterProduit(p1,10);
+		panier.ajouterProduit(p2,10);
+		panier.ajouterProduit(p3,1);
+		BigDecimal total = commande.totalAvecRegle(panier,commande.getReglesPrix());
+		org.junit.Assert.assertEquals(new BigDecimal("23.00"), total.setScale(2));
+
+	}
 
 	
 }
