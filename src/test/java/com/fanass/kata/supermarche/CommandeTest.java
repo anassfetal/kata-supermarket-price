@@ -147,4 +147,18 @@ public class CommandeTest {
 
 	}
 	
+	@Test
+	public void testCommandeAvecUneRegleReductionTotalNProduitEtRegleAjouterProduitGratuit() {
+		Commande commande = new Commande();
+		commande.ajouterRegle(new ReductionTotalNProduit(p2,new Prix(new BigDecimal("2.5")) , 3));
+		commande.ajouterRegle(new RegleAjouterProduitGratuit(p1,3));
+		Panier panier = new Panier();
+		panier.ajouterProduit(p1,10);
+		panier.ajouterProduit(p2,10);
+		panier.ajouterProduit(p3,1);
+		BigDecimal total = commande.total(panier,commande.getListReglesPrix());
+		org.junit.Assert.assertEquals(new BigDecimal("21.50"), total.setScale(2));
+
+	}
+	
 }
