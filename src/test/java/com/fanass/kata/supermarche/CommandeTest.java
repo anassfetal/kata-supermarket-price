@@ -7,7 +7,6 @@ import org.junit.Test;
 import com.fanass.kata.supermarche.model.Panier;
 import com.fanass.kata.supermarche.model.Prix;
 import com.fanass.kata.supermarche.model.Produit;
-import com.fanass.kata.supermarche.model.ReductionTotalNProduit;
 import com.fanass.kata.supermarche.model.RegleAjouterProduitGratuit;
 
 
