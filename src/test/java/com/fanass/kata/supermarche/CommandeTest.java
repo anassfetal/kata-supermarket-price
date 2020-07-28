@@ -33,7 +33,7 @@ public class CommandeTest {
 	}
 	
 	@Test
-	public void testCommandeAvecUnSeulProduitAchter2FoisAuPanier() {
+	public void testCommandeAvecUnSeulProduitEnDoubleAuPanier() {
 		Commande commande = new Commande();
 		Panier panier = new Panier();
 		panier.ajouterProduit(p1,2);

@@ -14,7 +14,7 @@ public class Commande {
 			gProduit = new GroupProduit();
 			gProduit = panier.getListGroupProduit().get(0);
 			
-			return gProduit.getProduit().getPrix().getPrix(); 
+			return (gProduit.getProduit().getPrix().getPrix()).multiply(Utils.intToBigDecimal(gProduit.getNombre())); 
 		}
 		return Utils.intToBigDecimal(0);
 	}
