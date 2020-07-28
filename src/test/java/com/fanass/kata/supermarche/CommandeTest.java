@@ -14,6 +14,7 @@ public class CommandeTest {
 	Produit p1 = new Produit(new Prix(new BigDecimal("1.5")),1);
 	Produit p2 = new Produit(new Prix(new BigDecimal("1.0")),2);
 	Produit p3 = new Produit(new Prix(new BigDecimal("2.5")),3);
+	Produit p4 = new Produit(new Prix(new BigDecimal("3.0")),"KG",4);
 
 	@Test
 	public void testCommandeSansProduit() {
@@ -159,6 +160,16 @@ public class CommandeTest {
 		BigDecimal total = commande.total(panier,commande.getListReglesPrix());
 		org.junit.Assert.assertEquals(new BigDecimal("21.50"), total.setScale(2));
 
+	}
+	
+	
+	@Test
+	public void testCommandeAvecUnProduitKiloAuPanier() {
+		Commande commande = new Commande();
+		Panier panier = new Panier();
+		panier.ajouterProduitAvecPoids(p4,new BigDecimal("1.50"),"KG");
+		BigDecimal total = commande.total(panier,null);
+		org.junit.Assert.assertEquals(new BigDecimal("4.50"), total.setScale(2));
 	}
 	
 }

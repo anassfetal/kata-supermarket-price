@@ -1,6 +1,7 @@
 package com.fanass.kata.supermarche.model;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,11 @@ public class Panier {
 		gProduit.nombre=i;
 		gProduit.produit=p1;
 		listGroupProduit.add(gProduit);
+		
+	}
+
+	public void ajouterProduitAvecPoids(Produit p4, BigDecimal bigDecimal, String string) {
+		// TODO Auto-generated method stub
 		
 	}
 
