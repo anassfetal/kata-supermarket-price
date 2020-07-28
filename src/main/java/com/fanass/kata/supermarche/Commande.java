@@ -15,14 +15,13 @@ public class Commande {
 			for(int i=0;i<panier.getListGroupProduit().size();i++) {
 				gProduit = new GroupProduit();
 				gProduit = panier.getListGroupProduit().get(i);
-				BigDecimal prixGProduit=Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(gProduit.getNombre()));
-				
+				BigDecimal prixGProduit=Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(gProduit.getNombre()));				
 				total=Utils.ajoutDeuxBigDecimal(total,prixGProduit);
 				
 			}
-			return total;
+			
 		}
-		return Utils.intToBigDecimal(0);
+		return total;
 	}
 	
 	
