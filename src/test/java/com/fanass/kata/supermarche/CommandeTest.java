@@ -3,7 +3,7 @@ package com.fanass.kata.supermarche;
 import java.math.BigDecimal;
 import org.junit.Test;
 
-import com.fanass.kata.supermarche.model.Commande;
+
 import com.fanass.kata.supermarche.model.Panier;
 import com.fanass.kata.supermarche.model.Prix;
 import com.fanass.kata.supermarche.model.Produit;

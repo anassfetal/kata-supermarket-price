@@ -10,11 +10,17 @@ public class Commande {
 
 	public BigDecimal total(Panier panier) {
 		GroupProduit gProduit;
+		BigDecimal total=Utils.intToBigDecimal(0);
 		if(panier.getListGroupProduit().size()!=0) {
-			gProduit = new GroupProduit();
-			gProduit = panier.getListGroupProduit().get(0);
-			
-			return Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(gProduit.getNombre())); 
+			for(int i=0;i<panier.getListGroupProduit().size();i++) {
+				gProduit = new GroupProduit();
+				gProduit = panier.getListGroupProduit().get(i);
+				BigDecimal prixGProduit=Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intToBigDecimal(gProduit.getNombre()));
+				
+				total= total.add(prixGProduit);
+				
+			}
+			return total;
 		}
 		return Utils.intToBigDecimal(0);
 	}
