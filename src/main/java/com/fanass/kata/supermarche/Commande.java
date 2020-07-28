@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fanass.kata.supermarche.model.GroupProduit;
 import com.fanass.kata.supermarche.model.Panier;
+import com.fanass.kata.supermarche.model.ReductionTotalNProduit;
 import com.fanass.kata.supermarche.model.RegleAjouterProduitGratuit;
 import com.fanass.kata.supermarche.model.ReglePrix;
 import com.fanass.kata.supermarche.utils.Utils;
@@ -33,7 +34,26 @@ public class Commande {
 								int rapport =gProduit.getNombre()/regleAjouterProduitGratuit.getNombre();
 								total=total.subtract(Utils.multiDeuxBigDecimal(Utils.intToBigDecimal(rapport),gProduit.getProduit().prix.getPrix()));
 							}
+							
 						}
+						else if (listReglesPrix.get(h) instanceof ReductionTotalNProduit) {
+							ReductionTotalNProduit reductionTotalNProduit =(ReductionTotalNProduit) listReglesPrix.get(h);
+							if(reductionTotalNProduit.getProduit().getIdProduit()==gProduit.getProduit().getIdProduit()) {
+								int N=gProduit.getNombre()/reductionTotalNProduit.getNombreProduit();
+								total=total.subtract(Utils.multiDeuxBigDecimal(
+														Utils.intToBigDecimal(N),
+														(
+																Utils.multiDeuxBigDecimal(
+																gProduit.getProduit().prix.getPrix(),
+																Utils.intToBigDecimal(reductionTotalNProduit.getNombreProduit()).subtract(reductionTotalNProduit.getPrix().getPrix())
+																)
+															
+													    )
+													)
+								);
+								
+							}
+						} 
 					}
 				}	
 				
