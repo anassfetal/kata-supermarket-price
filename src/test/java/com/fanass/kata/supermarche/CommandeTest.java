@@ -1,6 +1,9 @@
 package com.fanass.kata.supermarche;
 
 import java.math.BigDecimal;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import com.fanass.kata.supermarche.model.Panier;
 import com.fanass.kata.supermarche.model.Prix;
@@ -12,11 +15,26 @@ import com.fanass.kata.supermarche.utils.Poids;
 
 public class CommandeTest {
 
-	Produit p1 = new Produit(new Prix(new BigDecimal("1.5")),1);
-	Produit p2 = new Produit(new Prix(new BigDecimal("1.0")),2);
-	Produit p3 = new Produit(new Prix(new BigDecimal("2.5")),3);
-	Produit p4 = new Produit(new Prix(new BigDecimal("3.0")),Poids.KILOGRAMME.getValue(),4);
-
+	private Produit p1;
+	private Produit p2;
+	private Produit p3;
+	private Produit p4;
+	
+	@Before
+	  public void initialiser() throws Exception {
+		p1 = new Produit(new Prix(new BigDecimal("1.5")),1);
+		p2 = new Produit(new Prix(new BigDecimal("1.0")),2);
+		p3 = new Produit(new Prix(new BigDecimal("2.5")),3);
+		p4 = new Produit(new Prix(new BigDecimal("3.0")),Poids.KILOGRAMME.getValue(),4);
+	  }
+	@After
+	  public void nettoyer() throws Exception {
+		p1 =  null;
+		p2 =  null;
+		p3 =  null;
+		p4 =  null;
+	  }
+	
 	@Test
 	public void testCommandeSansProduit() {
 		Commande commande = new Commande();
