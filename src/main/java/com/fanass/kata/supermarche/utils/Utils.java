@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class Utils {
 	
 	
-	public static BigDecimal intToBigDecimal(int nombre) {
+	public static BigDecimal intVersBigDecimal(int nombre) {
 		
 		return new BigDecimal(nombre);
 	
@@ -26,7 +26,7 @@ public class Utils {
 	}
 
 	
-	public static BigDecimal substractionBigDecimal(BigDecimal a1,BigDecimal a2) {
+	public static BigDecimal soustractionBigDecimal(BigDecimal a1,BigDecimal a2) {
 		
 		return a1.subtract(a2);
 		
