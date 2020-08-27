@@ -21,14 +21,14 @@ public class CommandeTest {
 	private Produit p4;
 	
 	@Before
-	  public void initialiser() throws Exception {
+	public void initialiser() throws Exception {
 		p1 = new Produit(new Prix(new BigDecimal("1.5")),1);
 		p2 = new Produit(new Prix(new BigDecimal("1.0")),2);
 		p3 = new Produit(new Prix(new BigDecimal("2.5")),3);
 		p4 = new Produit(new Prix(new BigDecimal("3.0")),Poids.KILOGRAMME.getValue(),4);
 	  }
 	@After
-	  public void nettoyer() throws Exception {
+	public void nettoyer() throws Exception {
 		p1 =  null;
 		p2 =  null;
 		p3 =  null;
@@ -39,7 +39,7 @@ public class CommandeTest {
 	public void testCommandeSansProduit() {
 		Commande commande = new Commande();
 		Panier panier = new Panier();
-		BigDecimal total = commande.total(panier,null);
+		BigDecimal total = commande.calculerTotal(panier,null);
 		org.junit.Assert.assertEquals(new BigDecimal("0.00"), total.setScale(2));
 	}
 	
@@ -48,7 +48,7 @@ public class CommandeTest {
 		Commande commande = new Commande();
 		Panier panier = new Panier();
 		panier.ajouterProduit(p1,1);
-		BigDecimal total = commande.total(panier,null);
+		BigDecimal total = commande.calculerTotal(panier,null);
 		org.junit.Assert.assertEquals(new BigDecimal("1.50"), total.setScale(2));
 	}
 	
@@ -57,7 +57,7 @@ public class CommandeTest {
 		Commande commande = new Commande();
 		Panier panier = new Panier();
 		panier.ajouterProduit(p1,2);
-		BigDecimal total = commande.total(panier,null);
+		BigDecimal total = commande.calculerTotal(panier,null);
 		org.junit.Assert.assertEquals(new BigDecimal("3.00"), total.setScale(2));
 	}
 	
@@ -67,7 +67,7 @@ public class CommandeTest {
 		Panier panier = new Panier();
 		panier.ajouterProduit(p1,10);
 		panier.ajouterProduit(p2,10);
-		BigDecimal total = commande.total(panier,null);
+		BigDecimal total = commande.calculerTotal(panier,null);
 		org.junit.Assert.assertEquals(new BigDecimal("25.00"), total.setScale(2));	
 	}
 	
@@ -78,7 +78,7 @@ public class CommandeTest {
 		panier.ajouterProduit(p1,10);
 		panier.ajouterProduit(p2,10);
 		panier.ajouterProduit(p3,1);
-		BigDecimal total = commande.total(panier,null);
+		BigDecimal total = commande.calculerTotal(panier,null);
 		org.junit.Assert.assertEquals(new BigDecimal("27.50"), total.setScale(2));	
 	}
 
@@ -91,7 +91,7 @@ public class CommandeTest {
 		panier.ajouterProduit(p1,10);
 		panier.ajouterProduit(p2,10);
 		panier.ajouterProduit(p3,1);
-		BigDecimal total = commande.total(panier,commande.getListeReglesPrix());
+		BigDecimal total = commande.calculerTotal(panier,commande.getListeReglesPrix());
 		org.junit.Assert.assertEquals(new BigDecimal("23.00"), total.setScale(2));
 
 	}
@@ -104,7 +104,7 @@ public class CommandeTest {
 		panier.ajouterProduit(p1,10);
 		panier.ajouterProduit(p2,10);
 		panier.ajouterProduit(p3,1);
-		BigDecimal total = commande.total(panier,commande.getListeReglesPrix());
+		BigDecimal total = commande.calculerTotal(panier,commande.getListeReglesPrix());
 		org.junit.Assert.assertEquals(new BigDecimal("20.00"), total.setScale(2));
 
 	}
@@ -120,7 +120,7 @@ public class CommandeTest {
 		panier.ajouterProduit(p1,10);
 		panier.ajouterProduit(p2,10);
 		panier.ajouterProduit(p3,10);
-		BigDecimal total = commande.total(panier,commande.getListeReglesPrix());
+		BigDecimal total = commande.calculerTotal(panier,commande.getListeReglesPrix());
 		org.junit.Assert.assertEquals(new BigDecimal("35.00"), total.setScale(2));
 
 	}
@@ -133,7 +133,7 @@ public class CommandeTest {
 		panier.ajouterProduit(p1,10);
 		panier.ajouterProduit(p2,10);
 		panier.ajouterProduit(p3,1);
-		BigDecimal total = commande.total(panier,commande.getListeReglesPrix());
+		BigDecimal total = commande.calculerTotal(panier,commande.getListeReglesPrix());
 		org.junit.Assert.assertEquals(new BigDecimal("26.00"), total.setScale(2));
 
 	}
@@ -147,7 +147,7 @@ public class CommandeTest {
 		panier.ajouterProduit(p1,10);
 		panier.ajouterProduit(p2,10);
 		panier.ajouterProduit(p3,1);
-		BigDecimal total = commande.total(panier,commande.getListeReglesPrix());
+		BigDecimal total = commande.calculerTotal(panier,commande.getListeReglesPrix());
 		org.junit.Assert.assertEquals(new BigDecimal("25.00"), total.setScale(2));
 
 	}
@@ -162,7 +162,7 @@ public class CommandeTest {
 		panier.ajouterProduit(p1,10);
 		panier.ajouterProduit(p2,10);
 		panier.ajouterProduit(p3,10);
-		BigDecimal total = commande.total(panier,commande.getListeReglesPrix());
+		BigDecimal total = commande.calculerTotal(panier,commande.getListeReglesPrix());
 		org.junit.Assert.assertEquals(new BigDecimal("42.50"), total.setScale(2));
 
 	}
@@ -176,7 +176,7 @@ public class CommandeTest {
 		panier.ajouterProduit(p1,10);
 		panier.ajouterProduit(p2,10);
 		panier.ajouterProduit(p3,1);
-		BigDecimal total = commande.total(panier,commande.getListeReglesPrix());
+		BigDecimal total = commande.calculerTotal(panier,commande.getListeReglesPrix());
 		org.junit.Assert.assertEquals(new BigDecimal("21.50"), total.setScale(2));
 
 	}
@@ -186,8 +186,8 @@ public class CommandeTest {
 	public void testCommandeAvecUnProduitKiloAuPanier() {
 		Commande commande = new Commande();
 		Panier panier = new Panier();
-		panier.ajouterProduitAvecPoids(p4,new BigDecimal("1.50"),"KG");
-		BigDecimal total = commande.total(panier,null);
+		panier.ajouterProduitAvecPoids(p4,new BigDecimal("1.50"),Poids.KILOGRAMME.getValue());
+		BigDecimal total = commande.calculerTotal(panier,null);
 		org.junit.Assert.assertEquals(new BigDecimal("4.50"), total.setScale(2));
 	}
 	
@@ -201,7 +201,7 @@ public class CommandeTest {
 		panier.ajouterProduit(p2,10);
 		panier.ajouterProduit(p3,1);
 		panier.ajouterProduitAvecPoids(p4,new BigDecimal("1.50"),Poids.KILOGRAMME.getValue());
-		BigDecimal total = commande.total(panier,null);
+		BigDecimal total = commande.calculerTotal(panier,null);
 		org.junit.Assert.assertEquals(new BigDecimal("32.00"), total.setScale(2));
 	}
 	

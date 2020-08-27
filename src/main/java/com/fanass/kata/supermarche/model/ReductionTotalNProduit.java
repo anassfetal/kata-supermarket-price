@@ -1,21 +1,14 @@
 package com.fanass.kata.supermarche.model;
 
-public class ReductionTotalNProduit  implements ReglePrix {
+public class ReductionTotalNProduit  extends RegleDeReduction {
 
-	public Produit produit;
+
 	
 	public Prix prix;
 	
 	public int nombreProduit;
 	
 
-	public Produit getProduit() {
-		return produit;
-	}
-
-	public void setProduit(Produit produit) {
-		this.produit = produit;
-	}
 
 	public Prix getPrix() {
 		return prix;

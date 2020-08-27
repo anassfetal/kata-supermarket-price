@@ -8,73 +8,82 @@ import com.fanass.kata.supermarche.model.GroupProduit;
 import com.fanass.kata.supermarche.model.Panier;
 import com.fanass.kata.supermarche.model.ReductionTotalNProduit;
 import com.fanass.kata.supermarche.model.RegleAjouterProduitGratuit;
-import com.fanass.kata.supermarche.model.ReglePrix;
-import com.fanass.kata.supermarche.utils.Utils;
+import com.fanass.kata.supermarche.model.RegleDeReduction;
+
+import com.fanass.kata.supermarche.utils.CalculsUtils;
+import com.fanass.kata.supermarche.utils.ReglesUtils;
 
 public class Commande {
 	
-	private List<ReglePrix> listReglesPrix = new ArrayList<ReglePrix>();
-
-	public BigDecimal total(Panier panier, List<ReglePrix> listReglesPrix) {
+	
+	private List<RegleDeReduction> listReglesPrix = new ArrayList<RegleDeReduction>();
+	
+	
+	public BigDecimal calculerTotal(Panier panier, List<RegleDeReduction> listReglesPrix) {
 		GroupProduit gProduit;
-		BigDecimal total=Utils.intVersBigDecimal(0);
-		if(panier.getListeGroupeProduit().size()!=0) {
-			for(int i=0;i<panier.getListeGroupeProduit().size();i++) {
-				gProduit = new GroupProduit();
-				gProduit = panier.getListeGroupeProduit().get(i);
-				if(gProduit.getPoids()==null) {
-					BigDecimal prixGProduit=Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intVersBigDecimal(gProduit.getNombre()));				
-					total=Utils.ajoutDeuxBigDecimal(total,prixGProduit);
-				}else {
-					total=Utils.ajoutDeuxBigDecimal(total,Utils.multiDeuxBigDecimal(gProduit.getPoids(),gProduit.getProduit().getPrix().getPrix()));
+		BigDecimal total=BigDecimal.ZERO;
+		BigDecimal cumulReduction=BigDecimal.ZERO;
+		for(int i=0;i<panier.getListeGroupeProduit().size();i++) {
+			
+			gProduit = new GroupProduit();
+			gProduit = panier.getListeGroupeProduit().get(i);
+			if(gProduit.getPoids()==null) {
+				BigDecimal prixGProduit=calculerTotalSansReductionUnite(gProduit);				
+				total=CalculsUtils.ajoutDeuxBigDecimal(total,prixGProduit);
+			}else {
+				total=CalculsUtils.ajoutDeuxBigDecimal(total,calculerMontantGroupProduit(gProduit));
+			}
+			cumulReduction = calculerCumulDeReductionTotal(listReglesPrix, gProduit, total);	
+			total=CalculsUtils.soustractionBigDecimal(total,cumulReduction);
+		}
+			
+		
+		return total;
+	}
+
+	
+	private BigDecimal calculerCumulDeReductionTotal(List<RegleDeReduction> listReglesPrix, GroupProduit gProduit,BigDecimal total) {
+		BigDecimal montantTotalDeReduction=BigDecimal.ZERO;
+		if(listReglesPrix!=null) {
+			for(int h=0;h<listReglesPrix.size();h++) {
+				if(listReglesPrix.get(h) instanceof RegleAjouterProduitGratuit) {
+					RegleAjouterProduitGratuit regleAjouterProduitGratuit =(RegleAjouterProduitGratuit) listReglesPrix.get(h);
+					BigDecimal montantAdeduire = ReglesUtils.calculerMontantAReduction(gProduit, regleAjouterProduitGratuit);
+					montantTotalDeReduction= CalculsUtils.ajoutDeuxBigDecimal(montantTotalDeReduction,montantAdeduire);
+					
 				}
-				int nombre =gProduit.getNombre();
-				if(listReglesPrix!=null) {
-					for(int h=0;h<listReglesPrix.size();h++) {
-						if(listReglesPrix.get(h) instanceof RegleAjouterProduitGratuit) {
-							RegleAjouterProduitGratuit regleAjouterProduitGratuit =(RegleAjouterProduitGratuit) listReglesPrix.get(h);
-							if(regleAjouterProduitGratuit.getProduit().getIdProduit()==gProduit.getProduit().getIdProduit()) {
-								Utils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),Utils.intVersBigDecimal(nombre));
-								int rapport =gProduit.getNombre()/regleAjouterProduitGratuit.getNombre();
-								total=Utils.soustractionBigDecimal(total, Utils.multiDeuxBigDecimal(Utils.intVersBigDecimal(rapport),gProduit.getProduit().prix.getPrix()));
-							}
-							
-						}
-						else if (listReglesPrix.get(h) instanceof ReductionTotalNProduit) {
-							ReductionTotalNProduit reductionTotalNProduit =(ReductionTotalNProduit) listReglesPrix.get(h);
-							if(reductionTotalNProduit.getProduit().getIdProduit()==gProduit.getProduit().getIdProduit()) {
-								int N=gProduit.getNombre()/reductionTotalNProduit.getNombreProduit();
-								total=Utils.soustractionBigDecimal(total,Utils.multiDeuxBigDecimal(
-														Utils.intVersBigDecimal(N),
-														(Utils.soustractionBigDecimal(
-																Utils.multiDeuxBigDecimal(
-																	gProduit.getProduit().prix.getPrix(),
-																	Utils.intVersBigDecimal(reductionTotalNProduit.getNombreProduit())
-																				),
-															reductionTotalNProduit.getPrix().getPrix())
-													    )
-													)
-								);
-								
-							}
-						} 
+				else if (listReglesPrix.get(h) instanceof ReductionTotalNProduit) {
+					ReductionTotalNProduit reductionTotalNProduit =(ReductionTotalNProduit) listReglesPrix.get(h);
+					if(reductionTotalNProduit.getProduit().getIdProduit()==gProduit.getProduit().getIdProduit()) {
+						BigDecimal montantAdeduire2 =ReglesUtils.calculerMontantAReductionRegle2(gProduit, reductionTotalNProduit);
+						montantTotalDeReduction= CalculsUtils.ajoutDeuxBigDecimal(montantTotalDeReduction,montantAdeduire2);
+						
 					}
-				}	
-				
+				} 
 			}
 			
 		}
-		return total;
+		return montantTotalDeReduction;
+	}
+
+
+
+	private BigDecimal calculerTotalSansReductionUnite(GroupProduit gProduit) {
+		return CalculsUtils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),CalculsUtils.intVersBigDecimal(gProduit.getNombre()));
+	}
+
+	private BigDecimal calculerMontantGroupProduit(GroupProduit gProduit) {
+		return CalculsUtils.multiDeuxBigDecimal(gProduit.getPoids(),gProduit.getProduit().getPrix().getPrix());
 	}
 	
-	public void ajouterRegle(ReglePrix reglePrix) {
-		listReglesPrix.add(reglePrix);
+	public void ajouterRegle(RegleDeReduction regleDeReduction) {
+		listReglesPrix.add(regleDeReduction);
 		
 	}
-	public List<ReglePrix> getListeReglesPrix() {
+	public List<RegleDeReduction> getListeReglesPrix() {
 		return listReglesPrix;
 	}
-	public void setListReglesPrix(List<ReglePrix> listeReglesPrix) {
+	public void setListReglesPrix(List<RegleDeReduction> listeReglesPrix) {
 		this.listReglesPrix = listReglesPrix;
 	}
 

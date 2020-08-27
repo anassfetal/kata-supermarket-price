@@ -2,9 +2,14 @@ package com.fanass.kata.supermarche.utils;
 
 import java.math.BigDecimal;
 
-public class Utils {
+public final class CalculsUtils {
 	
 	
+	private CalculsUtils() {
+		
+	}
+
+
 	public static BigDecimal intVersBigDecimal(int nombre) {
 		
 		return new BigDecimal(nombre);
@@ -31,5 +36,6 @@ public class Utils {
 		return a1.subtract(a2);
 		
 	}
+	
 
 }
