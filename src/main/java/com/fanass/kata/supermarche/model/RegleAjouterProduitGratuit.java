@@ -2,7 +2,7 @@ package com.fanass.kata.supermarche.model;
 
 public class RegleAjouterProduitGratuit extends RegleDeReduction {
 
-	//Produit produit;
+
 	int nombre;
 	
 
