@@ -20,29 +20,32 @@ public class Commande {
 	private List<RegleDeReduction> listReglesPrix = new ArrayList<RegleDeReduction>();
 	
 	
-	public BigDecimal calculerTotal(Panier panier, List<RegleDeReduction> listReglesPrix) {
-		BigDecimal[] total= {BigDecimal.ZERO};
-		BigDecimal[] cumulReduction= {BigDecimal.ZERO};	
-		Optional<Panier> panierOptionel = Optional.ofNullable(panier);
-		if(panierOptionel.isPresent()) {
-			panier.getListeGroupeProduit().forEach(gProduit->
-					{
-						if(gProduit.getPoids()==null) {
-							BigDecimal prixGProduit=calculerTotalSansReductionUnite(gProduit);				
-							total[0]=CalculsUtils.ajoutDeuxBigDecimal(total[0],prixGProduit);
-						}else {
-							total[0]=CalculsUtils.ajoutDeuxBigDecimal(total[0],calculerMontantGroupProduit(gProduit));
-						}
-						cumulReduction[0] = calculerCumulDeReductionTotal(listReglesPrix, gProduit, total[0]);	
-						total[0]=CalculsUtils.soustractionBigDecimal(total[0],cumulReduction[0]);
-					}
-					);
-		}
-		return total[0];
-	}
 
-	
-	private BigDecimal calculerCumulDeReductionTotal(List<RegleDeReduction> listReglesPrix, GroupProduit gProduit,BigDecimal total) {
+	public BigDecimal calculerTotal(Panier panier, List<RegleDeReduction> listReglesPrix) {
+		Optional<Panier> panierOptionel = Optional.ofNullable(panier);
+		if (panierOptionel.isPresent()) {
+			BigDecimal totalUniteSansReduction = panier.getListeGroupeProduit().stream()
+					.filter(g -> g.getPoids() == null).map(g -> calculerTotalSansReductionUnite(g))
+					.reduce(BigDecimal.ZERO, (a, b) -> CalculsUtils.ajoutDeuxBigDecimal(a, b));
+			BigDecimal totalPoidsSansReduction = panier.getListeGroupeProduit().stream()
+					.filter(g -> g.getPoids() != null).map(g -> calculerMontantGroupProduit(g))
+					.reduce(BigDecimal.ZERO, (a, b) -> CalculsUtils.ajoutDeuxBigDecimal(a, b));
+
+			BigDecimal totalSansReduction = CalculsUtils.ajoutDeuxBigDecimal(totalUniteSansReduction,
+					totalPoidsSansReduction);
+
+			BigDecimal cumulReduction = panier.getListeGroupeProduit().stream()
+					.map(g -> calculerCumulDeReductionTotal(listReglesPrix, g))
+					.reduce(BigDecimal.ZERO, (a, b) -> CalculsUtils.ajoutDeuxBigDecimal(a, b));
+
+			return CalculsUtils.soustractionBigDecimal(totalSansReduction, cumulReduction);
+
+		}
+		return BigDecimal.ZERO;
+	}
+	 
+	 
+	private BigDecimal calculerCumulDeReductionTotal(List<RegleDeReduction> listReglesPrix, GroupProduit gProduit) {
 		BigDecimal[] montantTotalDeReduction= {BigDecimal.ZERO};
 		Optional<List<RegleDeReduction>> listReglesPrixOptionnel = Optional.ofNullable(listReglesPrix);
 		if(listReglesPrixOptionnel.isPresent()) {
