@@ -2,7 +2,12 @@ package com.fanass.kata.supermarche.model;
 
 public abstract class RegleDeReduction {
 
-	public Produit produit;
+	private Produit produit;
+
+	public RegleDeReduction(Produit produit) {
+
+		this.produit=produit;
+	}
 
 	public Produit getProduit() {
 		return produit;

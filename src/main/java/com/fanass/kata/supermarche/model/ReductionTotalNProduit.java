@@ -4,9 +4,9 @@ public class ReductionTotalNProduit  extends RegleDeReduction {
 
 
 	
-	public Prix prix;
+	private Prix prix;
 	
-	public int nombreProduit;
+	private int nombreProduit;
 	
 
 
@@ -27,7 +27,7 @@ public class ReductionTotalNProduit  extends RegleDeReduction {
 	}
 
 	public ReductionTotalNProduit(Produit produit, Prix prix, int nombreProduit) {
-		this.produit = produit;
+		super(produit);
 		this.prix = prix;
 		this.nombreProduit = nombreProduit;
 	}

@@ -3,11 +3,11 @@ package com.fanass.kata.supermarche.model;
 public class RegleAjouterProduitGratuit extends RegleDeReduction {
 
 
-	int nombre;
+	private int nombre;
 	
 
 	public RegleAjouterProduitGratuit(Produit produit, int nombre) {
-		this.produit = produit;
+		super(produit);
 		this.nombre = nombre;
 	}
 

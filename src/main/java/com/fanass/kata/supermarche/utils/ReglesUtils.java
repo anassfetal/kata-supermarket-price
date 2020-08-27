@@ -13,7 +13,7 @@ public final class ReglesUtils {
 		if(regleAjouterProduitGratuit.getProduit().getIdProduit()==gProduit.getProduit().getIdProduit()) {
 			CalculsUtils.multiDeuxBigDecimal(gProduit.getProduit().getPrix().getPrix(),CalculsUtils.intVersBigDecimal(gProduit.getNombre()));
 			int rapport =gProduit.getNombre()/regleAjouterProduitGratuit.getNombre();
-			return  CalculsUtils.multiDeuxBigDecimal(CalculsUtils.intVersBigDecimal(rapport),gProduit.getProduit().prix.getPrix());
+			return  CalculsUtils.multiDeuxBigDecimal(CalculsUtils.intVersBigDecimal(rapport),gProduit.getProduit().getPrix().getPrix());
 			}
 			return BigDecimal.ZERO;
 		
@@ -26,7 +26,7 @@ public final class ReglesUtils {
 								CalculsUtils.intVersBigDecimal(N),
 								(CalculsUtils.soustractionBigDecimal(
 										CalculsUtils.multiDeuxBigDecimal(
-											gProduit.getProduit().prix.getPrix(),
+											gProduit.getProduit().getPrix().getPrix(),
 											CalculsUtils.intVersBigDecimal(reductionTotalNProduit.getNombreProduit())
 														),
 									reductionTotalNProduit.getPrix().getPrix())

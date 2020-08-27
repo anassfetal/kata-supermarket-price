@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Panier {
-	List<GroupProduit> listeGroupeProduit= new ArrayList<GroupProduit>();
+	private List<GroupProduit> listeGroupeProduit= new ArrayList<GroupProduit>();
 
 
 	public List<GroupProduit> getListeGroupeProduit() {
@@ -19,8 +19,8 @@ public class Panier {
 
 	public void ajouterProduit(Produit p1, int i) {
 		GroupProduit gProduit = new GroupProduit();
-		gProduit.nombre=i;
-		gProduit.produit=p1;
+		gProduit.setNombre(i);
+		gProduit.setProduit(p1);
 		listeGroupeProduit.add(gProduit);
 		
 	}
@@ -28,9 +28,9 @@ public class Panier {
 	public void ajouterProduitAvecPoids(Produit produit, BigDecimal poids, String unite) {
 
 		GroupProduit gProduit = new GroupProduit();
-		gProduit.poids=poids;
-		gProduit.unite=unite;
-		gProduit.produit=produit;
+		gProduit.setPoids(poids);
+		gProduit.setUnite(unite);
+		gProduit.setProduit(produit);
 		listeGroupeProduit.add(gProduit);
 		
 	}

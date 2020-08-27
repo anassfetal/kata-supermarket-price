@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 
 public class GroupProduit {
 
-	public Produit produit;
-	public  int nombre;
-	public BigDecimal poids;
-	public String unite;
+	private Produit produit;
+	private  int nombre;
+	private BigDecimal poids;
+	private String unite;
+	
+	
 	public Produit getProduit() {
 		return produit;
 	}

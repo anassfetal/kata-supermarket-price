@@ -2,9 +2,9 @@ package com.fanass.kata.supermarche.model;
 
 public class Produit {
 
-	public int idProduit;
-	public String unite;
-	public Prix prix;
+	private int idProduit;
+	private String unite;
+	private Prix prix;
 
 	public Produit(Prix prix,int id) {
 		this.prix= prix;
