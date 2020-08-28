@@ -19,7 +19,7 @@ Pour le système de tarification dans les supermarchés il y a deux cas:
 
 Le programme prend en charge et implémente ce système de tarification avec les différents cas.
 
-# 2-Régles-de-tarifications:
+# 2-Régles-de-tarification:
 Il y a deux régles qui sont implémentées:
 ### Régle1:
 Lorsqu'un client achéte x-1 unité d'un produit,il obtien un x éme produit gratuitement ,du coup la tarification d'un x unité doit se basé sur (le prix de l'unité)*(x-1)
