@@ -26,4 +26,3 @@ Lorsqu'un client achéte  x unité d'un produit ,le prix du lot sera y euro.
 # 3-Diagramme-de-classe:
 Le digramme de classe :
 ![Alt text](diagrammeDeClasseFinal.PNG?raw=true "Title")
-![alt text](https://github.com/anassfetal/kata-supermarket-price/blob/master/diagrammeDeClasseFinal.PNG)
