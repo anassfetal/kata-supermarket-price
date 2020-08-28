@@ -1,19 +1,22 @@
 # 1-Kata-Supermarket-Pricing
-La tarification d'un Supemarché  KATA en java
+La tarification d'un Supermarché  KATA en java
 
-Ce repo est une implémentation java de la tarification d'un Supemarché  KATA.
+Ce repo est une implémentation java de la tarification d'un Supermarché  KATA.
 
-Pour le systeme de tarification dans les supermarchés il y a deux cas:
+Pour le système de tarification dans les supermarchés il y a deux cas:
 
 1-Certaines produits qui ont des prix simples Par exemple: 
-• boîte de haricotscoûte 0,65 $. 
+• boîte de haricots coûte 0,65 $. 
 
 2-D'autres choses ont des prix plus complexes. Par exemple:
+
 • trois pour un dollar (quel est le prix si j'en achète 4 ou 5?)
+
 • 1,99 $ / livre (alors que coûte 4 onces?)
+
 • achetez-en deux, obtenez-en un gratuitement (le troisième article a-t-il un prix?)
 
-Le programme prend en charge et implémente  ce systeme de tarification avec les 2 cas.
+Le programme prend en charge et implémente ce système de tarification avec les différents cas.
 
 # 2-Régles-de-tarifications:
 Il y a deux régles qui sont implémentées:
