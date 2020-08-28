@@ -6,6 +6,7 @@ Ce repo est une implémentation java de la tarification d'un Supermarché  KATA.
 Pour le système de tarification dans les supermarchés il y a deux cas:
 
 1-Certaines produits qui ont des prix simples Par exemple: 
+
 • boîte de haricots coûte 0,65 $. 
 
 2-D'autres choses ont des prix plus complexes. Par exemple:
